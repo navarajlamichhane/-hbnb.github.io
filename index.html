@@ -1,1 +1,494 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375px, initial-scale=1.0">
+<title>Instagram</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#E1306C',
+secondary: '#F77737'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body { max-width: 375px; margin: 0 auto; background: white; }
+.story-gradient { background: linear-gradient(45deg, #F77737, #E1306C); }
+.double-tap-like { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); opacity: 0; transition: all 0.3s; }
+.double-tap-like.active { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+</style>
+</head>
+<body class="pb-16">
+<nav class="fixed top-0 w-full bg-white border-b z-50">
+<div class="flex justify-between items-center px-4 h-14">
+<div class="w-8 h-8 flex items-center justify-center cursor-pointer">
+<i class="ri-camera-line text-xl"></i>
+</div>
+<h1 class="font-['Pacifico'] text-xl bg-gradient-to-r from-primary via-secondary to-purple-500 bg-clip-text text-transparent drop-shadow-lg transform hover:scale-105 transition-transform duration-300 cursor-pointer select-none">logo</h1>
+<div class="w-8 h-8 flex items-center justify-center cursor-pointer">
+<i class="ri-send-plane-line text-xl"></i>
+</div>
+</div>
+</nav>
+<div class="mt-14 px-4 py-3 overflow-x-auto whitespace-nowrap">
+<div class="inline-flex gap-4">
+<div class="flex flex-col items-center">
+<div class="relative w-16 h-16 mb-1">
+<div class="absolute inset-0 rounded-full p-0.5 story-gradient">
+<div class="w-full h-full bg-white rounded-full p-0.5">
+<img src="https://public.readdy.ai/ai/img_res/bed51d3185982ca4c2e20fd044b98a8f.jpg" class="w-full h-full rounded-full object-cover" alt="Your Story">
+</div>
+</div>
+<div class="absolute bottom-0 right-0 w-5 h-5 bg-primary rounded-full flex items-center justify-center border-2 border-white cursor-pointer">
+<i class="ri-add-line text-white text-sm"></i>
+</div>
+</div>
+<span class="text-xs">Your Story</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 mb-1 story-gradient rounded-full p-0.5">
+<div class="w-full h-full bg-white rounded-full p-0.5">
+<img src="https://public.readdy.ai/ai/img_res/dc3c57f6c780f3e523b96409b03eba9d.jpg" class="w-full h-full rounded-full object-cover cursor-pointer" alt="james_wilson">
+</div>
+</div>
+<span class="text-xs">james_wilson</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 mb-1 story-gradient rounded-full p-0.5">
+<div class="w-full h-full bg-white rounded-full p-0.5">
+<img src="https://public.readdy.ai/ai/img_res/fee69d0841558fecb947a2c9fceda6e6.jpg" class="w-full h-full rounded-full object-cover cursor-pointer" alt="emily_art">
+</div>
+</div>
+<span class="text-xs">emily_art</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 mb-1 story-gradient rounded-full p-0.5">
+<div class="w-full h-full bg-white rounded-full p-0.5">
+<img src="https://public.readdy.ai/ai/img_res/9e10ad65cb22a04c210ea218b80916cc.jpg" class="w-full h-full rounded-full object-cover cursor-pointer" alt="travel_mike">
+</div>
+</div>
+<span class="text-xs">travel_mike</span>
+</div>
+</div>
+</div>
+<div class="feed">
+<article class="mb-6">
+<div class="flex items-center px-4 py-2">
+<img src="https://public.readdy.ai/ai/img_res/d8df605167401654c7390a2d72d1b448.jpg" class="w-8 h-8 rounded-full mr-3" alt="sophia_chen">
+<span class="font-medium flex-1">sophia_chen</span>
+<i class="ri-more-fill cursor-pointer"></i>
+</div>
+<div class="relative" ondblclick="handleDoubleTap(this)">
+<img src="https://public.readdy.ai/ai/img_res/c7f8ca61423b1db59f983042c5771b89.jpg" class="w-full" alt="Post">
+<i class="ri-heart-fill text-white text-6xl double-tap-like"></i>
+</div>
+<div class="px-4 py-2">
+<div class="flex items-center justify-between mb-2">
+<div class="flex gap-4">
+<i class="ri-heart-line text-2xl cursor-pointer like-button"></i>
+<i class="ri-chat-1-line text-2xl cursor-pointer comment-button"></i>
+<i class="ri-send-plane-line text-2xl cursor-pointer"></i>
+</div>
+<i class="ri-bookmark-line text-2xl cursor-pointer save-button"></i>
+</div>
+<div class="mb-2 text-sm font-medium likes-count">2,451 likes</div>
+<div class="comment-input-container hidden">
+<div class="flex items-center gap-2 mt-2 mb-3">
+<input type="text" placeholder="Add a comment..." class="flex-1 px-3 py-2 border rounded-full bg-gray-50 text-sm focus:outline-none focus:border-gray-400">
+<button class="text-primary font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed">Post</button>
+</div>
+</div>
+<div class="text-sm">
+<span class="font-medium">sophia_chen</span>
+<span>Working on some exciting new projects! Can't wait to share more details soon 💼✨ #WorkLife #Innovation</span>
+</div>
+<div class="comments-section hidden">
+<div class="comments-list space-y-2 mt-2"></div>
+</div>
+<button class="view-comments-btn text-gray-500 text-sm mt-1">View all comments</button>
+<div class="text-xs text-gray-500 mt-1">2 HOURS AGO</div>
+</div>
+</article>
+<article class="mb-6">
+<div class="flex items-center px-4 py-2">
+<img src="https://public.readdy.ai/ai/img_res/02dcb34896dedf649f894e3269346afa.jpg" class="w-8 h-8 rounded-full mr-3" alt="chef_david">
+<span class="font-medium flex-1">chef_david</span>
+<i class="ri-more-fill cursor-pointer"></i>
+</div>
+<div class="relative" ondblclick="handleDoubleTap(this)">
+<img src="https://public.readdy.ai/ai/img_res/ddf2fcd27043342e34b0700cf77e3e93.jpg" class="w-full" alt="Post">
+<i class="ri-heart-fill text-white text-6xl double-tap-like"></i>
+</div>
+<div class="px-4 py-2">
+<div class="flex items-center justify-between mb-2">
+<div class="flex gap-4">
+<i class="ri-heart-line text-2xl cursor-pointer like-button"></i>
+<i class="ri-chat-1-line text-2xl cursor-pointer comment-button"></i>
+<i class="ri-send-plane-line text-2xl cursor-pointer"></i>
+</div>
+<i class="ri-bookmark-line text-2xl cursor-pointer save-button"></i>
+</div>
+<div class="mb-2 text-sm font-medium likes-count">3,872 likes</div>
+<div class="comment-input-container hidden">
+<div class="flex items-center gap-2 mt-2 mb-3">
+<input type="text" placeholder="Add a comment..." class="flex-1 px-3 py-2 border rounded-full bg-gray-50 text-sm focus:outline-none focus:border-gray-400">
+<button class="text-primary font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed">Post</button>
+</div>
+</div>
+<div class="text-sm">
+<span class="font-medium">chef_david</span>
+<span>Tonight's special: Pan-seared scallops with citrus reduction 🍽️ #FoodArt #ChefLife</span>
+</div>
+<div class="comments-section hidden">
+<div class="comments-list space-y-2 mt-2"></div>
+</div>
+<button class="view-comments-btn text-gray-500 text-sm mt-1">View all 245 comments</button>
+<div class="text-xs text-gray-500 mt-1">4 HOURS AGO</div>
+</div>
+</article>
+</div>
+<div id="loginModal" class="fixed inset-0 bg-white z-50 hidden">
+<div class="px-4 py-3 flex justify-end">
+<button onclick="closeLoginModal()" class="w-8 h-8 flex items-center justify-center">
+<i class="ri-close-line text-xl"></i>
+</button>
+</div>
+<div class="px-8 pt-12">
+<h1 class="font-['Pacifico'] text-3xl text-center mb-8">logo</h1>
+<form id="loginForm" class="space-y-4">
+<div>
+<input type="text" placeholder="Phone number, username or email" class="w-full px-4 py-3 border rounded-button bg-gray-50">
+</div>
+<div>
+<input type="password" placeholder="Password" class="w-full px-4 py-3 border rounded-button bg-gray-50">
+</div>
+<button type="submit" class="w-full bg-primary text-white py-3 rounded-button font-medium">Log In</button>
+<div class="flex items-center my-4">
+<div class="flex-1 h-px bg-gray-300"></div>
+<span class="px-4 text-gray-500 text-sm">OR</span>
+<div class="flex-1 h-px bg-gray-300"></div>
+</div>
+<button type="button" onclick="showSignupModal()" class="w-full text-primary font-medium">Create New Account</button>
+</form>
+</div>
+</div>
+<div id="signupModal" class="fixed inset-0 bg-white z-50 hidden">
+<div class="px-4 py-3 flex justify-end">
+<button onclick="closeSignupModal()" class="w-8 h-8 flex items-center justify-center">
+<i class="ri-close-line text-xl"></i>
+</button>
+</div>
+<div class="px-8 pt-12">
+<h1 class="font-['Pacifico'] text-3xl text-center mb-8">logo</h1>
+<form id="signupForm" class="space-y-4">
+<div>
+<input type="text" placeholder="Mobile Number or Email" class="w-full px-4 py-3 border rounded-button bg-gray-50">
+</div>
+<div>
+<input type="text" placeholder="Full Name" class="w-full px-4 py-3 border rounded-button bg-gray-50">
+</div>
+<div>
+<input type="text" placeholder="Username" class="w-full px-4 py-3 border rounded-button bg-gray-50">
+</div>
+<div>
+<input type="password" placeholder="Password" class="w-full px-4 py-3 border rounded-button bg-gray-50">
+</div>
+<button type="submit" class="w-full bg-primary text-white py-3 rounded-button font-medium">Sign Up</button>
+<div class="text-center mt-4">
+<button type="button" onclick="showLoginModal()" class="text-primary font-medium">Already have an account?</button>
+</div>
+</form>
+</div>
+</div>
+<nav class="fixed bottom-0 w-full bg-white border-t">
+<div class="grid grid-cols-5 h-14">
+<button class="flex flex-col items-center justify-center">
+<i class="ri-home-5-fill text-xl"></i>
+</button>
+<button class="flex flex-col items-center justify-center">
+<i class="ri-search-line text-xl"></i>
+</button>
+<button class="flex flex-col items-center justify-center">
+<i class="ri-add-box-line text-xl"></i>
+</button>
+<button class="flex flex-col items-center justify-center">
+<i class="ri-heart-line text-xl"></i>
+</button>
+<button class="flex flex-col items-center justify-center" onclick="showLoginModal()">
+<i class="ri-user-line text-xl"></i>
+</button>
+</div>
+</nav>
+<script>
+let mockData = {
+posts: [
+{
+id: 1,
+likes: 2451,
+saved: false,
+liked: false,
+comments: [
+{ username: 'sarah_designer', text: 'This looks amazing! Can\'t wait to see more! 🔥' },
+{ username: 'tech_enthusiast', text: 'Great setup! What monitor is that?' },
+{ username: 'workspace_goals', text: 'Love the minimalist vibes!' },
+{ username: 'digital_nomad', text: 'Perfect workspace inspiration!' },
+{ username: 'creative_mind', text: 'The lighting is on point! 👌' }
+]
+},
+{
+id: 2,
+likes: 3872,
+saved: false,
+liked: false,
+comments: [
+{ username: 'foodie_jane', text: 'Looks absolutely delicious! 😋' },
+{ username: 'cooking_pro', text: 'Perfect plating as always!' },
+{ username: 'gourmet_lover', text: 'Recipe please! 🙏' }
+]
+},
+{
+id: 3,
+likes: 1893,
+saved: false,
+liked: false,
+comments: []
+},
+{
+id: 4,
+likes: 4217,
+saved: false,
+liked: false,
+comments: []
+}
+]
+};
+function showLoginModal() {
+document.getElementById('loginModal').classList.remove('hidden');
+document.getElementById('signupModal').classList.add('hidden');
+}
+function closeLoginModal() {
+document.getElementById('loginModal').classList.add('hidden');
+}
+function showSignupModal() {
+document.getElementById('signupModal').classList.remove('hidden');
+document.getElementById('loginModal').classList.add('hidden');
+}
+function closeSignupModal() {
+document.getElementById('signupModal').classList.add('hidden');
+}
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+e.preventDefault();
+closeLoginModal();
+});
+document.getElementById('signupForm').addEventListener('submit', function(e) {
+e.preventDefault();
+closeSignupModal();
+});
+let mockData = {
+posts: [
+{
+id: 1,
+likes: 2451,
+saved: false,
+liked: false,
+comments: [
+{ username: 'sarah_designer', text: 'This looks amazing! Can\'t wait to see more! 🔥' },
+{ username: 'tech_enthusiast', text: 'Great setup! What monitor is that?' },
+{ username: 'workspace_goals', text: 'Love the minimalist vibes!' },
+{ username: 'digital_nomad', text: 'Perfect workspace inspiration!' },
+{ username: 'creative_mind', text: 'The lighting is on point! 👌' }
+]
+},
+{
+id: 2,
+likes: 3872,
+saved: false,
+liked: false,
+comments: [
+{ username: 'foodie_jane', text: 'Looks absolutely delicious! 😋' },
+{ username: 'cooking_pro', text: 'Perfect plating as always!' },
+{ username: 'gourmet_lover', text: 'Recipe please! 🙏' }
+]
+},
+{
+id: 3,
+likes: 1893,
+saved: false,
+liked: false,
+comments: []
+},
+{
+id: 4,
+likes: 4217,
+saved: false,
+liked: false,
+comments: []
+}
+]
+};
+function handleDoubleTap(element) {
+const heart = element.querySelector('.double-tap-like');
+const postId = element.closest('article').dataset.postId;
+const likeButton = element.closest('article').querySelector('.like-button');
+heart.classList.add('active');
+likeButton.classList.remove('ri-heart-line');
+likeButton.classList.add('ri-heart-fill');
+likeButton.style.color = '#E1306C';
+setTimeout(() => {
+heart.classList.remove('active');
+}, 1000);
+const post = mockData.posts.find(p => p.id === parseInt(postId));
+if (post && !post.liked) {
+post.liked = true;
+post.likes++;
+updateLikesCount(element.closest('article'));
+}
+}
+document.querySelectorAll('.view-comments-btn').forEach(button => {
+button.addEventListener('click', () => {
+const article = button.closest('article');
+const postId = parseInt(article.dataset.postId);
+const post = mockData.posts.find(p => p.id === postId);
+const commentsSection = article.querySelector('.comments-section');
+const commentsList = commentsSection.querySelector('.comments-list');
+commentsSection.classList.toggle('hidden');
+if (commentsSection.classList.contains('hidden')) {
+button.textContent = `View all ${post.comments.length} comments`;
+} else {
+button.textContent = 'Hide comments';
+commentsList.innerHTML = post.comments.map(comment =>
+`<div class="text-sm"><span class="font-medium">${comment.username}</span> ${comment.text}</div>`
+).join('');
+}
+});
+});
+document.querySelectorAll('.comment-button').forEach(button => {
+button.addEventListener('click', () => {
+const article = button.closest('article');
+const container = article.querySelector('.comment-input-container');
+if (container) {
+container.classList.toggle('hidden');
+if (!container.classList.contains('hidden')) {
+container.querySelector('input').focus();
+}
+}
+});
+});
+document.querySelectorAll('article').forEach(article => {
+const button = article.querySelector('.comment-input-container button');
+const input = article.querySelector('.comment-input-container input');
+const postId = parseInt(article.dataset.postId);
+if (button && input) {
+input.addEventListener('input', () => {
+button.disabled = !input.value.trim();
+});
+button.addEventListener('click', () => {
+const comment = input.value.trim();
+if (comment) {
+const post = mockData.posts.find(p => p.id === postId);
+const newComment = {
+username: 'user123',
+text: comment
+};
+post.comments.unshift(newComment);
+const commentsSection = article.querySelector('.comments-list');
+if (commentsSection && !article.querySelector('.comments-section').classList.contains('hidden')) {
+const commentElement = document.createElement('div');
+commentElement.className = 'text-sm';
+commentElement.innerHTML = `<span class="font-medium">${newComment.username}</span> ${newComment.text}`;
+commentsSection.insertBefore(commentElement, commentsSection.firstChild);
+}
+input.value = '';
+button.disabled = true;
+const commentCountBtn = article.querySelector('.view-comments-btn');
+commentCountBtn.textContent = `View all ${post.comments.length} comments`;
+}
+});
+}
+});
+document.querySelectorAll('.comment-input-container button').forEach(button => {
+const input = button.previousElementSibling;
+input.addEventListener('input', () => {
+button.disabled = !input.value.trim();
+});
+button.addEventListener('click', () => {
+const comment = input.value.trim();
+if (comment) {
+const commentsContainer = button.closest('article').querySelector('.comments');
+const newComment = document.createElement('div');
+newComment.className = 'text-sm mb-1';
+newComment.innerHTML = `<span class="font-medium">user123</span> ${comment}`;
+if (commentsContainer) {
+commentsContainer.insertBefore(newComment, commentsContainer.firstChild);
+}
+input.value = '';
+button.disabled = true;
+}
+});
+});
+document.querySelectorAll('.like-button').forEach((button, index) => {
+button.addEventListener('click', () => {
+const post = mockData.posts[index];
+post.liked = !post.liked;
+if (post.liked) {
+button.classList.remove('ri-heart-line');
+button.classList.add('ri-heart-fill');
+button.style.color = '#E1306C';
+post.likes++;
+} else {
+button.classList.remove('ri-heart-fill');
+button.classList.add('ri-heart-line');
+button.style.color = '';
+post.likes--;
+}
+updateLikesCount(button.closest('article'));
+});
+});
+document.querySelectorAll('.save-button').forEach((button, index) => {
+button.addEventListener('click', () => {
+const post = mockData.posts[index];
+post.saved = !post.saved;
+if (post.saved) {
+button.classList.remove('ri-bookmark-line');
+button.classList.add('ri-bookmark-fill');
+} else {
+button.classList.remove('ri-bookmark-fill');
+button.classList.add('ri-bookmark-line');
+}
+});
+});
+function updateLikesCount(article) {
+const postId = article.dataset.postId;
+const post = mockData.posts.find(p => p.id === parseInt(postId));
+const likesElement = article.querySelector('.likes-count');
+likesElement.textContent = `${post.likes.toLocaleString()} likes`;
+}
+document.querySelectorAll('article').forEach((article, index) => {
+article.dataset.postId = mockData.posts[index].id;
+});
+</script>
+</body>
+</html>
